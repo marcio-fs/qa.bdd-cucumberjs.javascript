@@ -28,11 +28,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'  # Cache para instalação mais rápida
-
+     
     - name: Instalar dependências
-      run: npm ci  # Mais confiável que npm install em CI
-
+      run: |
+        if [ -f package-lock.json ]; then
+          npm ci
+        else
+          echo "Usando npm install (lock file não encontrado)"
+          npm install
+        fi
     - name: Executar testes
       run: npm test
       env:
