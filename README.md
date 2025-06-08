@@ -117,11 +117,6 @@ qa.bdd-cucumberjs.javascript/
 └── 📄 README.md
 ```
 
-#### Execução dos testes
+---
 
-Executar todos os testes BDD
-```bash
-
-npm test  # Executa todos os cenários
-npm run test:watch  # Modo watch
-```
+**Nota:** Este projeto é apenas para fins de avaliação técnica.

@@ -1,0 +1,49 @@
+name: Test Pipeline - BDD Cucumber JS -  CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '20'  # Versão LTS mais recente e estável
+  CI: true            # Habilita modo CI
+
+jobs:
+  build:
+    name: Run Cucumber Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30  # Previne execuções travadas
+
+    strategy:
+      matrix:
+        node-version: ['20']  # Mantém a matriz mas com versão específica
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4  # Versão mais recente
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'  # Cache para instalação mais rápida
+
+    - name: Instalar dependências
+      run: npm ci  # Mais confiável que npm install em CI
+
+    - name: Executar testes
+      run: npm test
+      env:
+        HEADLESS: true  # Adicionado modo headless para rodar sem UI
+
+    - name: Upload relatório de testes
+      if: always()  # Executa mesmo se os testes falharem
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: |
+          test-results/
+          reports/
+        retention-days: 3  # Mantém os relatórios por 3 dias
