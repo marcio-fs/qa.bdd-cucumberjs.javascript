@@ -1,0 +1,16 @@
+{
+  "name": "qa.bdd-cucumberjs.javascript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+      "test": "cucumber-js"
+  },
+  "keywords": [],
+  "author": "Marcio Silva",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "chai": "^5.2.0"
+  }
+}
